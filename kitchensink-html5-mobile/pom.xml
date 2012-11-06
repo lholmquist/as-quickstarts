@@ -30,9 +30,24 @@
         <!-- <javaee6.web.spec.version>3.0.0.Beta1-redhat-1</javaee6.web.spec.version> -->
         <!-- <version.org.hibernate.validator>4.2.0.Final-redhat-1</version.org.hibernate.validator> -->
         <version.org.jboss.as.arquillian.ci>7.1.1.Final</version.org.jboss.as.arquillian.ci>
-        
+        <version.org.jboss.shrinkwrap.resolver>2.0.0-alpha-1</version.org.jboss.shrinkwrap.resolver>
         <wro4j.version>1.4.4</wro4j.version>
-
+        
+        <version.org.jboss.spec.ee6-web>3.0.1.Final</version.org.jboss.spec.ee6-web>
+        <version.org.jboss.bom.hibernate>1.0.0.Final</version.org.jboss.bom.hibernate>
+        <version.org.apache.commons.lang3>3.1</version.org.apache.commons.lang3>
+        <version.org.jboss.arquillian>1.0.2.Final</version.org.jboss.arquillian>
+        <version.org.jboss.arquillian.drone>1.1.0.Final</version.org.jboss.arquillian.drone>
+        <version.org.jboss.shrinkwrap.resolver>2.0.0-alpha-1</version.org.jboss.shrinkwrap.resolver>
+        <version.org.jboss.arquillian.openshift>1.0.0.Beta1</version.org.jboss.arquillian.openshift>
+        <version.org.jboss.arquillian.android>1.0.0.Alpha1</version.org.jboss.arquillian.android>
+        <version.org.jboss.arquillian.container.selector>1.0.0-SNAPSHOT</version.org.jboss.arquillian.container.selector>
+        <version.org.jboss.as>7.1.1.Final</version.org.jboss.as>
+        <version.junit>4.10</version.junit>
+        
+        
+        <!-- default test properties -->
+        <browserCapabilities>firefox</browserCapabilities>
     </properties>
 
     <licenses>
@@ -53,19 +68,68 @@
       tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate
       stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras
       from the Hibernate family of projects) -->
+             <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.org.jboss.spec.ee6-web}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- JDF - http://www.jboss.org/jdf/stack/stacks/ -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${jboss.bom.version}</version>
+                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <version>${version.org.jboss.bom.hibernate}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+             <!-- ShrinkWrap Resolver -->
+            <dependency>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-bom</artifactId>
+                <version>${version.org.jboss.shrinkwrap.resolver}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-                <version>${jboss.bom.version}</version>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-depchain</artifactId>
+                <version>${version.org.jboss.shrinkwrap.resolver}</version>
+                <type>pom</type>
+            </dependency>
+
+            <!-- Arquillian -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.org.jboss.arquillian}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- Arquillian -->
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>${version.org.jboss.arquillian.drone}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                <version>${version.org.jboss.as}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-android-depchain</artifactId>
+                <version>${version.org.jboss.arquillian.android}</version>
+                <type>pom</type>
+            </dependency>
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -148,6 +212,7 @@
 
         <!-- Optional, but highly recommended -->
         <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
+        
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -159,6 +224,89 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Arquillian Drone with WebDriver -->
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-selenium</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-selenium-server</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>servlet-api-2.5</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.4</version>
+            <scope>test</scope>
+        </dependency> 
+          
+                            <!-- Drivers -->
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-android-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-chrome-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-firefox-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-htmlunit-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-ie-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-iphone-driver</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-remote-driver</artifactId>
+                    </dependency>
 
     </dependencies>
 
@@ -265,6 +413,24 @@
             </activation>
 
             <build>
+                <!-- Enable Arquillian Drone selection via Maven profiles in IDE -->
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/arquillian.xml</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/arquillian.xml</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+                
                 <pluginManagement>
                     <plugins>
                         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -340,7 +506,6 @@
                 </dependency>
             </dependencies>
         </profile>
-
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in a remote JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
