@@ -176,6 +176,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Graphene dependency chain - imports all other dependencies required -->
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>arquillian-graphene</artifactId>
+            <type>pom</type>
+            <version>2.0.0.Alpha2</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--<dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
@@ -222,7 +231,7 @@
             <version>1.6.4</version>
             <scope>test</scope>
         </dependency>
-                      -->
+            -->
         <!-- Drivers -->
         <!--<dependency>
             <groupId>org.seleniumhq.selenium</groupId>

@@ -33,11 +33,15 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 import java.net.URL;
+
+import static org.jboss.arquillian.graphene.Graphene.element;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Uses Arquilian Drone to test the JAX-RS processing class for member registration on the client with.
@@ -50,6 +54,8 @@ public class MemberRegistrationClientTest {
    @ArquillianResource
    URL contextUrl;
 
+    @Drone
+    WebDriver driver;
 
    @Deployment(testable = false)
    public static WebArchive createDeployment() {
@@ -77,8 +83,19 @@ public class MemberRegistrationClientTest {
    }
 
    @Test
-    public void openFireFoxHomePage(@Drone FirefoxDriver driver) {
+   public void addMemberClientTest() {
+
        driver.get(contextUrl.toString());
+
+       driver.findElement(By.id("name")).sendKeys("Luke");
+       driver.findElement(By.id("email")).sendKeys("luke@luke.com");
+       driver.findElement(By.id("phoneNumber")).sendKeys("1234567890");
+       driver.findElement(By.id("register")).submit();
+
+       waitModel().withMessage("Waiting For Registration Confirm").until(element(By.cssSelector("span.success")).isVisible());
+
+       assertEquals("Member Registered", driver.findElement(By.id("formMsgs")).getText());
+
    }
 
 

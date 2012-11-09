@@ -45,4 +45,8 @@
         </configuration>
     </container>
 
+    <extension qualifier="webdriver">
+        <property name="browserCapabilities">firefox</property>
+    </extension>
+
 </arquillian>
