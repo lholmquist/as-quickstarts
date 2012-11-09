@@ -46,7 +46,21 @@
     </container>
 
     <extension qualifier="webdriver">
-        <property name="browserCapabilities">firefox</property>
+        <property name="browserCapabilities">android</property>
+    </extension>
+
+    <extension qualifier="android">
+        <!-- <property name="verbose">true</property> -->
+        <!--Path to your Android Home,  can also use the ANDROID_HOME if set-->
+        <property name="home">/Users/lholmquist/develop/android-sdk-macosx</property>
+        <property name="avdName">Android_4.1</property>
+       <!-- <property name="emulatorBootupTimeoutInSeconds">120</property>     -->
+    </extension>
+
+    <extension qualifier="android-drone">
+        <!-- <property name="verbose">true</property> -->
+        <!-- path to the android server spk  from http://code.google.com/p/selenium/downloads/list-->
+        <property name="androidServerApk">/Users/lholmquist/develop/android-server-2.21.0.apk</property>
     </extension>
 
 </arquillian>

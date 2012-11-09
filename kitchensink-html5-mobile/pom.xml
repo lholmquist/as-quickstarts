@@ -177,13 +177,15 @@
         </dependency>
 
         <!-- Graphene dependency chain - imports all other dependencies required -->
-        <dependency>
+       <dependency>
             <groupId>org.jboss.arquillian.graphene</groupId>
             <artifactId>arquillian-graphene</artifactId>
             <type>pom</type>
             <version>2.0.0.Alpha2</version>
             <scope>test</scope>
         </dependency>
+
+
 
         <!--<dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -233,10 +235,8 @@
         </dependency>
             -->
         <!-- Drivers -->
-        <!--<dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-android-driver</artifactId>
-        </dependency>
+
+        <!--
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
@@ -256,13 +256,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-iphone-driver</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-        </dependency>
-                       -->
-
+        </dependency>    -->
     </dependencies>
 
     <build>
@@ -471,6 +465,30 @@
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
                     <scope>test</scope>
                 </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>arq-android</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-android-depchain</artifactId>
+                    <version>1.0.0.Alpha1</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-android-driver</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-remote-driver</artifactId>
+                </dependency>
+
             </dependencies>
         </profile>
 
