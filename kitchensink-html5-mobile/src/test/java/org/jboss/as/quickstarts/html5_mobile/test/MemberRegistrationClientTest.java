@@ -39,6 +39,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.android.library.AndroidWebDriver;
+import org.openqa.selenium.iphone.IPhoneDriver;
 import org.openqa.selenium.support.FindBy;
 
 
@@ -107,7 +108,7 @@ public class MemberRegistrationClientTest {
 
        driver.get(contextUrl.toString());
 
-       if( GrapheneContext.holdsInstanceOf(AndroidDriver.class) ) {
+       if( GrapheneContext.holdsInstanceOf(AndroidDriver.class) || GrapheneContext.holdsInstanceOf(IPhoneDriver.class) ) {
            waitModel().withMessage("Add button is not present.")
                    .until(element(addMemberButton).isVisible());
 
