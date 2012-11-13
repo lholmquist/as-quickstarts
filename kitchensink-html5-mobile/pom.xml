@@ -263,6 +263,11 @@
             <scope>test</scope>
         </dependency>
 
+       <!-- <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+        </dependency>        -->
+
     </dependencies>
 
     <build>

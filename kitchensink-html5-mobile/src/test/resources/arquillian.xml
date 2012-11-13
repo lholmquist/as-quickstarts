@@ -48,7 +48,16 @@
     <extension qualifier="webdriver">
         <property name="browserCapabilities">iphone</property>
         <!-- Remote location aka, where it's running on your device-->
-        <!--<property name="remoteAddress">http://192.168.1.4:3001/wd/hub/</property> -->
+        <property name="remoteAddress">http://192.168.1.4:3001/wd/hub/</property>
+    </extension>
+
+    <extension qualifier="ios">
+        <!--
+            this is optional - the extension can do `git clone` and build
+            the project automatically, but it can take a long time
+        -->
+        <property name="skip">true</property>
+        <property name="waxsimBinary">path to your WaxSim binary</property>
     </extension>
 
     <extension qualifier="ios-drone">
@@ -56,8 +65,8 @@
             this is optional - the extension can do svn checkout automatically,
             but it can take a long time
         -->
-        <!--<property name="skip">true</property>-->
-        <property name="localSeleniumCopy">/Users/lholmquist/develop/projects/selenium-trunk/trunk</property>
+        <property name="skip">true</property>
+        <!--<property name="localSeleniumCopy">/Users/lholmquist/develop/projects/selenium-trunk/trunk</property>-->
     </extension>
 
     <extension qualifier="android">
