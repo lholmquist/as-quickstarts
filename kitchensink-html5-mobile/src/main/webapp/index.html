@@ -47,6 +47,7 @@
             load: [
                 "http://code.jquery.com/jquery-1.8.2.min.js",
                 "js/libs/underscore-min.js",
+                "js/libs/aerogear.min.js",
                 // Minification - See Readme for details
                 // For minification, comment out this file
                 "js/app.js"
@@ -111,7 +112,8 @@
 
                     $( "#container" ).show();
                     //Fetches the initial member data and populates the table using jquery templates
-                    getMemberTemplate();
+                    //getMemberTemplate();
+                    updateMemberTable();
 
                     //Register an event listener on the sumbit action
                     $('#reg').submit(function(event) {
@@ -351,5 +353,22 @@
             <p>This project was generated from a Maven archetype from JBoss.<br/></p>
         </footer>
     </div>
+    <script type="text/template" id="member-tmpl">
+    <% var addHeader = true;
+    _.each(members, function(member) { 
+    if ( Modernizr.mq( "only all and (max-width: 640px)" ) ) {
+        addHeader = true;
+    }
+    %>
+    <div class="row member">
+        <div class="col"><% if ( addHeader ) { %><div class="head">Id</div><% } %><div class="data"><%=member.id%></div></div> 
+        <div class="col"><% if ( addHeader ) { %><div class="head">Name</div><% } %><div class="data"><%=member.name%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">Email</div><% } %><div class="data"><%=member.email%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">Phone #</div><% } %><div class="data"><%=member.phoneNumber%></div></div>
+        <div class="col"><% if ( addHeader ) { %><div class="head">REST URL</div><% } %><div class="data"><a href="rest/members/<%=member.id%>" rel="external" target="_blank" class="resturl ui-link">JSON</a></div></div>
+    </div>
+    <% addHeader = false;
+    }); %>
+    </script>
 </body>
 </html>
