@@ -18,8 +18,16 @@
 Core JavaScript functionality for the application.  Performs the required
 Restful calls, validates return values, and populates the member table.
  */
+var pipeline = AeroGear.Pipeline(),
+    memberPipe = pipeline.add({
+        name: "members",
+        settings: {
+            baseURL: "rest/"
+        }
+    } ).pipes.members;
 
 /* Get the member template */
+//deprecated - moving template to index.html
 function getMemberTemplate() {
     $.ajax({
         url: "tmpl/member.tmpl",
@@ -38,14 +46,9 @@ function buildMemberRows(members) {
 
 /* Uses JAX-RS GET to retrieve current member list */
 function updateMemberTable() {
-    $.ajax({
-        url: "rest/members",
-        cache: false,
-        success: function(data) {
+    memberPipe.read({
+        success: function( data ) {
             $('#members').empty().append(buildMemberRows(data));
-        },
-        error: function(error) {
-            //console.log("error updating table -" + error.status);
         }
     });
 }
@@ -60,12 +63,7 @@ function registerMember(memberData) {
     $('span.invalid').remove();
     $('span.success').remove();
 
-    $.ajax({
-        url: 'rest/members',
-        contentType: "application/json",
-        dataType: "json",
-        type: "POST",
-        data: JSON.stringify(memberData),
+    memberPipe.save( memberData, {
         success: function(data) {
             //console.log("Member registered");
 
@@ -91,5 +89,5 @@ function registerMember(memberData) {
                 $('#formMsgs').append($('<span class="invalid">Unknown server error</span>'));
             }
         }
-    });
+    } );
 }
